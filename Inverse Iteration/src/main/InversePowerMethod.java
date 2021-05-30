@@ -5,6 +5,7 @@ import utils.Methods;
 import java.util.Arrays;
 
 public class InversePowerMethod {
+
     public static void inversePowerMethod(int n, double[][] A, double[] x, double TOL, int maxIterations) {
         double[] y;
 

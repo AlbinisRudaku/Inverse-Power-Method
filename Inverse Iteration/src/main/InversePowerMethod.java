@@ -1,8 +1,8 @@
 package main;
 
-import java.lang.reflect.Method;
+import utils.Methods;
 
-import utils.*;
+import java.util.Arrays;
 
 public class InversePowerMethod {
     public static void inversePowerMethod(int n, double[][] A, double[] x, double TOL, int maxIterations) {
@@ -14,28 +14,29 @@ public class InversePowerMethod {
         double q2 = Methods.normaInf(Methods.multMV(A, x));
         double q3 = q1 * Methods.normaNje(x);
         q = (q1 * q2) / q3;
+        System.out.println("q = " + q);
 
         //Step 2 - Set k = 1
         int k = 1;
 
         //Step 3 - Find the smallest integer p with 1 <= p <= n and |Xp| = ||x||inf
         int p = 0;
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i < n; i++) {
             if (x[i] == Methods.normaInf(x)) {
                 p = i;
             }
         }
 
         //Step 4 - Set x =  x / Xp
-        for (int i = 0; i <= x.length; i++) {
+        for (int i = 0; i < x.length; i++) {
             x[i] = x[i] / x[p];
         }
 
-        int iterations = 0;
-        if (iterations > maxIterations) {
-            System.out.println("Maximim number of Iterations Exceeded!");
-        }
-        else {
+//        int iterations = 0;
+//        if (iterations > maxIterations) {
+//            System.out.println("Maximim number of Iterations Exceeded!");
+//        }
+//        else {
             //Step 5 - While (k <= N) do Steps 6-12
             while (k <= maxIterations) {
                 //Step 6 - Solve the linear system (A - qI)y = x
@@ -51,7 +52,7 @@ public class InversePowerMethod {
 
                 //Step 9 - Find the smallest intiger p with 1 <= p <= n and |Yp| = ||y||inf
                 int p1 = 0;
-                for (int i = 1; i <= n; i++) {
+                for (int i = 1; i < n; i++) {
                     if (y[i] == Methods.normaInf(y)) {
                         p1 = i;
                     }
@@ -67,14 +68,14 @@ public class InversePowerMethod {
                 //Step 11 - if ERR < TOL then set u = (1/u) + q
                 if (ERR < TOL) {
                     u = (1 / u) + q;
-                    System.out.println("u = " + u + ", x = " + x.toString());
+                    System.out.println("u = " + u + ", x = " + Arrays.toString(x));
                 }
 
                 //Step 12 - Set k = k + 1
                 k++;
             }
         }
-    }
+//    }
     public static void main(String[] args) {
         double[][] A = {
                 {-4, 14, 0},

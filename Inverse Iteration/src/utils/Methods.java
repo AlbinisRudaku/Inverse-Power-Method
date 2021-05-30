@@ -1,7 +1,5 @@
 package utils;
 
-import utils.InverseMatrix;
-
 public class Methods {
 
     // Vector one norm
